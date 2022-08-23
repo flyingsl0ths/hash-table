@@ -1,10 +1,5 @@
-# Hash Table
+mod table;
 
-A rust version of https://github.com/jamesroutley/write-a-hash-table
-
-## Usage
-
-```rust
 fn main() {
     let mut ht = table::Table::new();
 
@@ -23,4 +18,3 @@ fn main() {
 
     ht.clear();
 }
-```
