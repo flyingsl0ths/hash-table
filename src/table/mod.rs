@@ -133,7 +133,7 @@ impl Table {
 
         self.items.iter().filter(|e| e.is_some()).for_each(|e| {
             let (k, v) = e.as_ref().unwrap();
-            other.insert(k.to_string(), v.to_string());
+            other.insert(k.clone(), v.clone());
         });
 
         self.count = other.count;
