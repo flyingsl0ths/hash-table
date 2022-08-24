@@ -1,7 +1,7 @@
+mod prime;
+
 use self::prime::next_prime;
 use std::fmt::Display;
-
-mod prime;
 
 const INITIAL_BASE_SIZE: usize = 53usize;
 
