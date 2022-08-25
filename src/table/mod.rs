@@ -30,21 +30,20 @@ impl Table {
         }
     }
 
-    pub fn insert(&mut self, key: String, value: String) {
+    pub fn insert(&mut self, key: &str, value: &str) {
         let load = self.count * 100 / self.size;
 
         if load > 70 {
             self.resize_up();
         }
 
-        let key = &key;
         let mut index = Self::get_hash(key, self.size, 0usize);
         let mut item = self.items.get_mut(index);
         let mut i = 1;
 
         while let Some(Some((item_key, item_value))) = item {
             if item_key == key {
-                *item_value = value;
+                *item_value = value.to_string();
                 return;
             }
             index = Self::get_hash(key, self.size, i);
@@ -58,8 +57,7 @@ impl Table {
         self.count += 1;
     }
 
-    pub fn get(&self, key: String) -> Option<&String> {
-        let key = &key;
+    pub fn get(&self, key: &str) -> Option<&String> {
         let mut index = Self::get_hash(key, self.size, 0usize);
         let mut item = self.items.get(index);
         let mut value: Option<&String> = None;
@@ -81,14 +79,13 @@ impl Table {
         value
     }
 
-    pub fn delete(&mut self, key: String) {
+    pub fn delete(&mut self, key: &str) {
         let load = self.count * 100 / self.size;
 
         if load < 10 {
             self.resize_down();
         }
 
-        let key = &key;
         let mut index = Self::get_hash(key, self.size, 0);
         let mut item = self.items.get_mut(index);
         let mut i = 1;
@@ -133,7 +130,7 @@ impl Table {
 
         self.items.iter().filter(|e| e.is_some()).for_each(|e| {
             let (k, v) = e.as_ref().unwrap();
-            other.insert(k.clone(), v.clone());
+            other.insert(k, v);
         });
 
         self.count = other.count;
