@@ -16,10 +16,10 @@ pub struct Table {
 
 impl Table {
     pub fn new() -> Self {
-        Self::new_with_size(INITIAL_BASE_SIZE)
+        Self::with_size(INITIAL_BASE_SIZE)
     }
 
-    fn new_with_size(size: usize) -> Self {
+    fn with_size(size: usize) -> Self {
         let actual_size = next_prime(size);
 
         Table {
@@ -126,7 +126,7 @@ impl Table {
             return;
         }
 
-        let mut other = Self::new_with_size(base_size);
+        let mut other = Self::with_size(base_size);
 
         self.items.iter().filter(|e| e.is_some()).for_each(|e| {
             let (k, v) = e.as_ref().unwrap();
